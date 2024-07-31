@@ -1,7 +1,7 @@
 export default function MoviesPage(){
     return(
         <div>
-            <h2>Movies pages</h2>
+            <h1>Movies pages</h1>
         </div>
     )
 }
