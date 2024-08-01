@@ -15,10 +15,9 @@
 
 a {
   font-weight: 500;
-  color:brown;
+  color: brown;
   text-decoration: inherit;
 }
-
 
 body {
   margin: 0;
@@ -55,8 +54,17 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
- 
+
   button {
     background-color: #f9f9f9;
   }
+}
+li {
+  list-style-type: none;
+}
+ul {
+  margin-left: 0;
+  /* Отступ слева в браузере IE и Opera */
+  padding-left: 0;
+  /* Отступ слева в браузере Firefox, Safari, Chrome */
 }
