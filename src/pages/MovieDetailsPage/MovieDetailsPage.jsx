@@ -81,7 +81,9 @@ export default function MovieDetailsPage() {
       <div className={css.conteiner}>
         <ul className={css.ul}>
           <li className={css.li}>
-            <NavLink to="cast">Cast</NavLink>
+            <NavLink onClick={scroll(0, 500)} to="cast">
+              Cast
+            </NavLink>
           </li>
           <li className={css.li}>
             <NavLink to="reviews">Reviews</NavLink>
