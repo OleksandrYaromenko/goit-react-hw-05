@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { getSeachFilmsCredits } from "../../Api";
 import { useParams } from "react-router-dom";
 import ErrorMessage from "../ErrorMesage/ErrorMessage";
+import css from "./MovieCast.module.css";
 
 export default function MovieCast() {
   const { movieId } = useParams();
   const [films, setFilms] = useState([]);
   const [error, setError] = useState(false);
-  
 
   useEffect(() => {
     async function DetailsPegeCredits() {
@@ -16,8 +16,7 @@ export default function MovieCast() {
         setFilms(data.cast);
       } catch (error) {
         setError(true);
-        
-      } 
+      }
     }
     DetailsPegeCredits();
   }, [movieId]);
@@ -26,20 +25,22 @@ export default function MovieCast() {
   return (
     <div>
       {error && <ErrorMessage />}
-      <ul>
+      <ul className={css.ul}>
         {films.map(({ id, character, name, profile_path }) => (
-          <li key={id}>
+          <li key={id} className={css.li}>
             <img
-              width={70}
-              height={100}
+              width={150}
+              height={230}
               src={
                 profile_path
                   ? `https://image.tmdb.org/t/p/w500/${profile_path}`
                   : defaultImg
               }
             />
-            <p>Name: {name}</p>
-            <p>Character: {character}</p>
+            <div>
+              <p>Name: {name}</p>
+              <p>Character: {character}</p>
+            </div>
           </li>
         ))}
       </ul>

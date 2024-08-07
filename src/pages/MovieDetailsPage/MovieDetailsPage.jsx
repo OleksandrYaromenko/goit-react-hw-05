@@ -1,24 +1,31 @@
-import { useEffect, useState } from "react";
-import { Link, NavLink, Outlet, useParams } from "react-router-dom";
-import { getSeachFilmsId } from "../Api";
-import ErrorMessage from "../components/ErrorMesage/ErrorMessage";
+import { Suspense, useEffect, useRef, useState } from "react";
+import {
+  useLocation,
+  Link,
+  NavLink,
+  Outlet,
+  useParams,
+} from "react-router-dom";
+import { getSeachFilmsId } from "../../Api";
+import ErrorMessage from "../../components/ErrorMesage/ErrorMessage";
 import { MagnifyingGlass } from "react-loader-spinner";
+import css from "./MovieDetailsPage.module.css";
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
   const [films, setFilms] = useState([]);
   const [error, setError] = useState(false);
   const [loging, setLoging] = useState(false);
-  const [genres, setGenres] = useState([])
-  console.log(genres);
-
+  const [genres, setGenres] = useState([]);
+  const location = useLocation();
+  const backLinkRes = useRef(location.state ?? "/movies");
   useEffect(() => {
     async function DetailsPege() {
       try {
         setLoging(true);
         const data = await getSeachFilmsId(movieId);
         setFilms(data);
-        setGenres(data.genres)
+        setGenres(data.genres);
         console.log(data);
       } catch (error) {
         setError(true);
@@ -30,9 +37,11 @@ export default function MovieDetailsPage() {
     DetailsPege();
   }, [movieId]);
   return (
-    <main>
+    <main className={css.main}>
       <div>
-        <button><Link to="/">Go Back</Link></button>
+        <button>
+          <Link to={backLinkRes.current}>Go Back</Link>
+        </button>
       </div>
       {error && <ErrorMessage />}
       {loging && (
@@ -47,10 +56,10 @@ export default function MovieDetailsPage() {
           color="#e15b64"
         />
       )}
-      <div>
+      <div className={css.conteiner}>
         <div>
           {" "}
-          <img src={`https://image.tmdb.org/t/p/w500/${films.poster_path}`} />
+          <img src={`https://image.tmdb.org/t/p/w300/${films.poster_path}`} />
         </div>
 
         <div>
@@ -61,22 +70,28 @@ export default function MovieDetailsPage() {
           <p>{films.overview}</p>
           <h2>Genres</h2>
           <ul>
-            {genres.map(({id,name}) => (
-                <li key={id}>
-                    <p>{name}</p>
-                </li>
+            {genres.map(({ id, name }) => (
+              <li key={id}>
+                <p>{name}</p>
+              </li>
             ))}
           </ul>
         </div>
       </div>
-      <div>
-        <ul>
-            <li><NavLink to="cast">Cast</NavLink></li>
-            <li><NavLink to="reviews">Reviews</NavLink></li>
+      <div className={css.conteiner}>
+        <ul className={css.ul}>
+          <li className={css.li}>
+            <NavLink to="cast">Cast</NavLink>
+          </li>
+          <li className={css.li}>
+            <NavLink to="reviews">Reviews</NavLink>
+          </li>
         </ul>
       </div>
       <div>
-        <Outlet/>
+        <Suspense fallback={<div>Loading....</div>}>
+          <Outlet />
+        </Suspense>
       </div>
     </main>
   );

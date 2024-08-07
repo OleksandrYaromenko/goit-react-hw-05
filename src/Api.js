@@ -33,3 +33,10 @@ export async function getSeachFilmsReviews(paramentId) {
   );
   return result.data;
 }
+export async function getSeachFilms(query) {
+  const result = await axios.get(
+    `3/search/movie?query=${query}&language=en-US&page=1`,
+    options
+  );
+  return result.data;
+}

@@ -19,8 +19,8 @@ export default function HomePege() {
       } catch (error) {
         setError(true);
         setLoging(true);
-      }finally{
-        setLoging(false)
+      } finally {
+        setLoging(false);
       }
     }
     seachFilmsEffect();

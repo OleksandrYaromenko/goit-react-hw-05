@@ -1,0 +1,26 @@
+.main {
+  margin: 50px 150px;
+}
+.conteiner {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 100px;
+}
+.ul {
+  display: flex;
+  gap: 100px;
+}
+.li {
+  color: brown;
+  font-size: xx-large;
+  border-radius: 8px;
+  border: 1px solid;
+  padding: 0px 20px;
+  transition: background-color 0.25s;
+}
+.li:hover {
+  background-color: black;
+}
